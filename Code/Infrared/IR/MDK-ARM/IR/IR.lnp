@@ -1,0 +1,27 @@
+--cpu Cortex-M3
+"ir\startup_stm32f103xe.o"
+"ir\main.o"
+"ir\gpio.o"
+"ir\tim.o"
+"ir\usart.o"
+"ir\stm32f1xx_it.o"
+"ir\stm32f1xx_hal_msp.o"
+"ir\stm32f1xx_hal_gpio_ex.o"
+"ir\stm32f1xx_hal_tim.o"
+"ir\stm32f1xx_hal_tim_ex.o"
+"ir\stm32f1xx_hal.o"
+"ir\stm32f1xx_hal_rcc.o"
+"ir\stm32f1xx_hal_rcc_ex.o"
+"ir\stm32f1xx_hal_gpio.o"
+"ir\stm32f1xx_hal_dma.o"
+"ir\stm32f1xx_hal_cortex.o"
+"ir\stm32f1xx_hal_pwr.o"
+"ir\stm32f1xx_hal_flash.o"
+"ir\stm32f1xx_hal_flash_ex.o"
+"ir\stm32f1xx_hal_exti.o"
+"ir\stm32f1xx_hal_uart.o"
+"ir\system_stm32f1xx.o"
+--library_type=microlib --strict --scatter "IR\IR.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "IR.map" -o IR\IR.axf
