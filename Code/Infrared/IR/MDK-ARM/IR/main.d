@@ -32,3 +32,4 @@ ir\main.o: ../Inc/tim.h
 ir\main.o: ../Inc/usart.h
 ir\main.o: ../Inc/gpio.h
 ir\main.o: D:\Keil5\ARM\ARMCC\Bin\..\include\stdio.h
+ir\main.o: ..\Modules\ir.h

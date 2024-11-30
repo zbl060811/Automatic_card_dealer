@@ -21,6 +21,7 @@
 "ir\stm32f1xx_hal_exti.o"
 "ir\stm32f1xx_hal_uart.o"
 "ir\system_stm32f1xx.o"
+"ir\ir.o"
 --library_type=microlib --strict --scatter "IR\IR.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

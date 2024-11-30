@@ -25,6 +25,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <stdio.h>
+#include "ir.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -56,7 +57,7 @@ void SystemClock_Config(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
-int fputc(int ch, FILE * f)
+int fputc(int ch, FILE* f)
 {
 	HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, 1000);
 	return ch;
@@ -95,7 +96,8 @@ int main(void)
   MX_TIM4_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-	printf("init ok\r\n");
+  printf("init ok\r\n");
+  Ir_init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -105,6 +107,15 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+    if(recflag)
+    {
+      for (int i = 0; i < 33; i++)
+      {
+        printf("%u ",buffer[i]);
+      }
+      printf("\r\n");
+      recflag = 0;
+    }
   }
   /* USER CODE END 3 */
 }
