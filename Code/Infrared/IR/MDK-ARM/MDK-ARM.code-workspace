@@ -4,10 +4,6 @@
             "path": "."
         }
     ],
-    "settings": {
-        "files.associations": {
-            "ir.h": "c"
-        }
-    },
+    "settings": {},
     "extensions": {}
 }
