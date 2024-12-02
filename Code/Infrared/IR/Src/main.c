@@ -56,7 +56,6 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
 int fputc(int ch, FILE* f)
 {
 	HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, 1000);
@@ -107,14 +106,39 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    if(recflag)
+    if(ir.recflag)
     {
-      for (int i = 0; i < 33; i++)
+      for (int i = 0; i < 4; i++)
       {
-        printf("%u ",buffer[i]);
+        ir_rece(ir.num);
+        printf("0x%02x ",ir.num[i]);
+      }
+      switch (ir.num[2])
+      {
+        case 0xd1:printf("开机");break;
+        case 0xf1:printf("主界面");break;
+        case 0x91:printf("TEST");break;
+        case 0x81:printf("音量+");break;
+        case 0xcc:printf("音量-");break;
+        case 0xe1:printf("返回");break;
+        case 0xf0:printf("上一个");break;
+        case 0xd4:printf("播放");break;
+        case 0xc8:printf("下一个");break;
+        
+        case 0xb4:printf("0");break;
+        case 0xd8:printf("C");break;
+        case 0x98:printf("1");break;
+        case 0x8c:printf("2");break;
+        case 0xbd:printf("3");break;
+        case 0x88:printf("4");break;
+        case 0x9c:printf("5");break;
+        case 0xad:printf("6");break;
+        case 0xa1:printf("7");break;
+        case 0xa5:printf("8");break;
+        case 0xa9:printf("9");break;        
       }
       printf("\r\n");
-      recflag = 0;
+      ir.recflag = 0;
     }
   }
   /* USER CODE END 3 */

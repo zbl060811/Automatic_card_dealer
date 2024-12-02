@@ -1,18 +1,31 @@
 #include "ir.h"
 
-uint32_t upcount;         // 定时器中断溢出次数
-uint16_t valueup;         // 上升沿计数
-uint16_t valuedown;       // 下降沿计数
-uint8_t isup_flag;        // 上升沿标志
-uint32_t weigh;           // 脉宽值
-uint16_t buffer[128]={0};     // 数据缓冲区
-uint16_t buffid;          // 缓冲区ID
-uint8_t recflag;          // 接收标志
+ir_t ir;        // 创建红外结构体对象
 
+/// @brief 红外通信初始化
+/// @param  
 void Ir_init(void)
 {
     HAL_TIM_Base_Start_IT(&htim4);
     HAL_TIM_IC_Start_IT(&htim4, TIM_CHANNEL_4);
+}
+
+/// @brief 红外接收信号转换
+/// @param num 
+void ir_rece(char num[])
+{
+    for (int i = 0; i < 32;i++)
+    {
+        if(ir.buffer[i]<1200)
+        {
+            num[i / 8] = num[i / 8] << 1;
+        }
+        else
+        {
+            num[i / 8] = num[i / 8] << 1;
+            num[i / 8] |= 0x01;
+        }
+    }
 }
 
 
@@ -20,7 +33,7 @@ void Ir_init(void)
 /// @param htim 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-    upcount++;
+    ir.upcount++;
 }
 
 
@@ -28,32 +41,32 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 /// @param htim 
 void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
 {
-    if(isup_flag)
+    if(ir.isup_flag)
     {
-        isup_flag = 0;
-        upcount = 0;
-        valueup = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_4);
+        ir.isup_flag = 0;
+        ir.upcount = 0;
+        ir.valueup = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_4);
         __HAL_TIM_SET_CAPTUREPOLARITY(htim, TIM_CHANNEL_4, TIM_ICPOLARITY_FALLING);
     }
     else 
     {
-        isup_flag = 1;
-        valuedown = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_4);
+        ir.isup_flag = 1;
+        ir.valuedown = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_4);
         __HAL_TIM_SET_CAPTUREPOLARITY(htim, TIM_CHANNEL_4, TIM_ICPOLARITY_RISING);
-        weigh = valuedown + (upcount*65536) - valueup;
+        ir.weigh = ir.valuedown + (ir.upcount*65536) - ir.valueup;
         
-        if(weigh>4400 && weigh<4600)    
+        if(ir.weigh>4400 && ir.weigh<4600)    
         {
-            buffid = 0;
-            buffer[buffid++]=weigh;
+            ir.buffid = 0;
+            ir.buffer[ir.buffid++]=ir.weigh;
         }     
-        else if(buffid > 0)
+        else if(ir.buffid > 0)
         {
-            buffer[buffid++]=weigh;
-            if(buffid > 32)
+            ir.buffer[ir.buffid++]=ir.weigh;
+            if(ir.buffid > 32)
             {
-                recflag = 1;
-                buffid = 0;
+                ir.recflag = 1;
+                ir.buffid = 0;
             }
         }
     }
