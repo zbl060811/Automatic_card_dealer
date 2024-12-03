@@ -42,7 +42,7 @@ uint16_t lowV(uint16_t com)
 {
     static unsigned int iLastData;    //上一次值
     unsigned int iData;               //本次计算值
-    float dPower = 0.4;               //滤波系数
+    float dPower = 0.25;               //滤波系数
     iData = ( com * dPower ) + ( 1 - dPower ) * iLastData; //计算
     iLastData = iData;                                     //存贮本次数据
     return iData;                                         //返回数据
