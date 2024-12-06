@@ -56,6 +56,13 @@ void SystemClock_Config(void);
 /* USER CODE BEGIN 0 */
 int count = 0;
 
+void ctrl_wash()	// 控制洗牌电机
+{
+	WASH_CTRL(1);
+	
+	HAL_GPIO_WritePin(WASH_MOTOR_GPIO_PROT,WASH_MOTOR_GPIO_PIN,GPIO_PIN_SET);
+}
+
 /* USER CODE END 0 */
 
 /**
@@ -88,9 +95,9 @@ int main(void)
   MX_GPIO_Init();
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
-  //motor_init();
   
-      
+  
+  
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -100,28 +107,32 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  
+	  ctrl_wash();
 	  
 	// 洗牌电机驱动
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12,GPIO_PIN_SET);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_12,GPIO_PIN_SET);
+	  
+	//WASH_MOTOR_CTRL(1);
+	
+	  
+	 /* 按键控制洗牌开关 */ 
+	 /*if(HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_14)==0)
+	 {
+		  HAL_GPIO_TogglePin(WASH_MOTOR_GPIO_PROT,WASH_MOTOR_GPIO_PIN);
+		  
+		  
+   		  HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_SET);
+		  HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_RESET);
+		 
+		 while(HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_14)==0);
+	  }*/
+
+	  
+  
 	  
 	  
-	  // if(HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_14)==0)
-	  // {
-
-    //   HAL_GPIO_TogglePin(WASH_MOTOR_GPIO_PROT,WASH_MOTOR_GPIO_PIN);
-
-    //   while(HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_14)==0);
-	  // }
-
-    //WASH_MOTOR_CTRL(1);
-
-    HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_SET);
-	HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_RESET);
 	  
-    //HAL_GPIO_WritePin(GPIOB,GPIO_PIN_13,GPIO_PIN_SET);/
-//  	HAL_GPIO_WritePin(GPIOB,GPIO_PIN_14,GPIO_PIN_RESET);
+    //HAL_GPIO_WritePin(GPIOB,GPIO_PIN_13,GPIO_PIN_SET);
+	//HAL_GPIO_WritePin(GPIOB,GPIO_PIN_14,GPIO_PIN_RESET);*/
 	/*
 	// 腰盘电机驱动
 	HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_SET);
