@@ -26,3 +26,5 @@ oled\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h
 oled\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h
 oled\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h
 oled\main.o: ../Core/Inc/gpio.h
+oled\main.o: ..\Modules\oled.h
+oled\main.o: D:\Keil5\ARM\ARMCC\Bin\..\include\stdlib.h

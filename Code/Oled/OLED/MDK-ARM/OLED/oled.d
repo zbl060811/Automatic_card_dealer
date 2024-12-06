@@ -27,3 +27,5 @@ oled\oled.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_cortex.h
 oled\oled.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h
 oled\oled.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h
 oled\oled.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h
+oled\oled.o: D:\Keil5\ARM\ARMCC\Bin\..\include\stdlib.h
+oled\oled.o: ..\Modules\oledfont.h

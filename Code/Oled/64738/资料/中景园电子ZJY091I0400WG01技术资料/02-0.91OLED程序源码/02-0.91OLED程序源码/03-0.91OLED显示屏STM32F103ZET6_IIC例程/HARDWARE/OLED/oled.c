@@ -469,9 +469,7 @@ void OLED_Init(void)
  	GPIO_Init(GPIOD, &GPIO_InitStructure);	  //≥ı ºªØGPIOD1,5,15
  	GPIO_SetBits(GPIOD,GPIO_Pin_4);
 	
-	OLED_RES_Clr();
-	delay_ms(200);
-	OLED_RES_Set();
+
 	
 	OLED_WR_Byte(0xAE,OLED_CMD); /*display off*/
 	OLED_WR_Byte(0x00,OLED_CMD); /*set lower column address*/ 

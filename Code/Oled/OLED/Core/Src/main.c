@@ -22,7 +22,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "oled.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -85,7 +85,9 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
-
+	OLED_Init();
+	OLED_Clear();
+	OLED_DisPlay_On();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -95,6 +97,7 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+    OLED_ShowString(0,0,(unsigned char*)"STM32F103",16,1);
   }
   /* USER CODE END 3 */
 }
